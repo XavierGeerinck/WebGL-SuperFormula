@@ -42,7 +42,7 @@ light.shadowDarkness = 0.2;
 scene.add(light);
 
 // ******************
-//  Render Particles
+//  Render Mesh
 // ******************
 var cache;
 var renderScene = function (params) {
@@ -50,22 +50,44 @@ var renderScene = function (params) {
     scene.remove(cache);
   }
 
-  // geometry
-  var material = new THREE.PointCloudMaterial({
-      color: 0x00ff00,
-      size: 2,
-      sizeAttenuation: false
-  });
+  var geometry = new THREE.SuperFormulaGeometry( params.widthSegments, params.heightSegments, params.a, params.b, params.m, params.n1, params.n2, params.n3 );
+  var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
 
-  var points = createSuperFormulaShape(params);
-  var geometry = new THREE.Geometry();
-  geometry.vertices = points;
+  var mesh = THREE.SceneUtils.createMultiMaterialObject( geometry, [
+      new THREE.MeshLambertMaterial( { color: 0xffffff} ),
+      new THREE.MeshBasicMaterial( { color: 0x222222, wireframe: true} )
+  ]);
 
-  var particleSystem = new THREE.PointCloud(geometry, material);
-
-  cache = particleSystem;
+  cache = mesh;
   scene.add( cache );
 };
+
+
+// // ******************
+// //  Render Particles
+// // ******************
+// var cache;
+// var renderScene = function (params) {
+//   if (cache) {
+//     scene.remove(cache);
+//   }
+//
+//   // geometry
+//   var material = new THREE.PointCloudMaterial({
+//       color: 0x00ff00,
+//       size: 2,
+//       sizeAttenuation: false
+//   });
+//
+//   var points = createSuperFormulaShape(params);
+//   var geometry = new THREE.Geometry();
+//   geometry.vertices = points;
+//
+//   var particleSystem = new THREE.PointCloud(geometry, material);
+//
+//   cache = particleSystem;
+//   scene.add( cache );
+// };
 
 // // ******************
 // //   Render ConvexGeometry
