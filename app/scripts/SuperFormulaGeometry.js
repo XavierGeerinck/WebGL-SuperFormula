@@ -171,11 +171,17 @@ var createSuperFormulaShape = function (params) {
  * We also let the period go from -pi/2 to pi/2 for phi and -pi to pi for theta
  */
 var superFormula = function(angle, a, b, m, n1, n2, n3) {
-  var part1 = Math.pow(Math.abs(Math.cos((m * angle) / 4) / a), n2);
-  var part2 = Math.pow(Math.abs(Math.sin((m * angle) / 4) / b), n3);
-  var r = Math.pow(Math.abs(part1 + part2), -(1 / n1));
+	var mp = (m * angle) / 4.0;
 
-  return r;
+	var part1 = Math.cos(mp) * (1.0 / a);
+	var part2 = Math.sin(mp) * (1.0 / b);
+
+	part1 = Math.pow(Math.abs(part1), n2);
+	part2 = Math.pow(Math.abs(part2), n3);
+
+	var r = Math.abs(Math.pow(part1 + part2, 1.0 / n1));
+
+  return 1.0 / r;
 }
 
 /**
