@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<title>SuperFormula Test</title>
+
+
+	</head>
+	<body style='margin: 0px; overflow: hidden; text-align:center;'>
+	</body>
+
+	<script src='../node_modules/three/three.min.js'></script>
+	<script src='./scripts/OrbitControls.js'></script>
+	<script src='./scripts/SuperFormulaGeometry.js'></script>
+	<script src='./scripts/ConvexGeometry.js'></script>
+	<script src='./scripts/dat.gui.min.js'></script>
+	<script src='./scripts/super-formula.js'></script>
+	<script src='./scripts/main.js'></script>
+
+	<script type="text/javascript">
+		var gui = new dat.GUI({
+		    height : 8 * 32 - 1
+		});
+
+		var params = {
+			a: 1,
+			b: 1,
+			m: 3,
+			n1: 2,
+			n2: 5,
+			n3: 18,
+			widthSegments: 64,
+			heightSegments: 64
+		};
+
+		renderScene(params);
+
+		gui.add({ a: params.a }, 'a').min(0).max(5).step(0.1).onChange(function (value) { params.a = value; renderScene(params); });
+		gui.add({ b: params.b }, 'b').min(0).max(5).step(0.1).onChange(function (value) { params.b = value; renderScene(params); });
+		gui.add({ m: params.m }, 'm').min(0).max(10).step(0.5).onChange(function (value) { params.m = value; renderScene(params); });
+		gui.add({ n1: params.n1 }, 'n1').min(0).max(100).step(0.5).onChange(function (value) { params.n1 = value; renderScene(params); });
+		gui.add({ n2: params.n2 }, 'n2').min(0).max(100).step(0.5).onChange(function (value) { params.n2 = value; renderScene(params); });
+		gui.add({ n3: params.n3 }, 'n3').min(0).max(100).step(0.5).onChange(function (value) { params.n3 = value; renderScene(params); });
+		gui.add({ widthSegments: params.widthSegments }, 'widthSegments').min(1).max(256).step(16).onChange(function (value) { params.widthSegments = value; renderScene(params); });
+		gui.add({ heightSegments: params.heightSegments }, 'heightSegments').min(1).max(256).step(16).onChange(function (value) { params.heightSegments = value; renderScene(params); });
+	</script>
+</html>
